@@ -20,13 +20,13 @@ int fm(vector<vector<int>>&a,int m,int n) {
         // if even then left to right
         if(i%2==0) {
             if(a[i][0]==-1) dp[i][0]=0;  
-            else dp[i][0]=a[i][0]+dp[i-1][0];
+            else dp[i][0]=a[i][0]+dp[i-1][0];  // only top cell exits, left cell is out of bound
             for(int j=1;j<n;j++) {
                 if(a[i][j]!=-1) // if current cell value is -1 then we cant reach it, so 0 ways.
                 dp[i][j] = a[i][j] + max(dp[i-1][j],dp[i][j-1]);   // otherwise taking maximum from top and left + the current cell value (0 or 1)
             }
         }
-        if odd then right to left
+        //if odd then right to left
         else {
             if(a[i][n-1]==-1) dp[i][n-1]=0;
             else dp[i][n-1]=a[i][n-1]+dp[i-1][n-1];
