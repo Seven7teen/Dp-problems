@@ -1,5 +1,7 @@
 //Count total possible combinations of n-digit numbers in a mobile keypad
-/* Given a positive number n and a mobile keypad having digits from 0 to 9 associated with each key, count the total possible combinations of digits having length n . We can start with any digit and press only four adjacent keys of any digit. The keypad also contains * and # keys, which we are not allowed to press.
+/* Given a positive number n and a mobile keypad having digits from 0 to 9 associated with each key,
+count the total possible combinations of digits having length n . We can start with any digit and press
+only four adjacent keys of any digit. The keypad also contains * and # keys, which we are not allowed to press.
 
 Input:  n = 2
  
@@ -24,6 +26,7 @@ int isValid(int i, int j)
     return (i >= 0 && i <= 3 && j >= 0 && j <= 2);
 }
 
+// This multimap stores the all the next steps for a key in keypad (itself and all the feasible neighbours.
 multimap<int,int> fillmap(vector<vector<char>> &a, int m, int n) {
     multimap<int,int> mmp;
     
@@ -47,6 +50,9 @@ multimap<int,int> fillmap(vector<vector<char>> &a, int m, int n) {
     return mmp;
 }
 
+/* storing all the subproblems calculated value in the unordered map mp as (string, int). If already found then 
+return it, else calculate for all the next steps and store final value in mp[temp]. */
+
 int getAns(multimap<int,int> &mmap, unordered_map<string, int>&mp, int i, int k) {
     string temp = to_string(i) + "|" + to_string(k);
     // cout<<endl;
@@ -66,6 +72,7 @@ int findCount(int k, vector<vector<char>> &a) {
     int m=4,n=3;
     multimap<int,int>mmap = fillmap(a,m,n);
     unordered_map<string, int>mp;
+ // Base values are stored in unordered map here for k=1 and all i and j values
     loop(i,m) {
         loop(j,n) {
             if(i==3 && (j==0 || j==2)) continue;
@@ -79,6 +86,7 @@ int findCount(int k, vector<vector<char>> &a) {
         }
     }
     int cnt=0;
+    // all the keys are being sent one by one as first digit of the k digit no.
     loop(i,10) {
          cnt+=getAns(mmap,mp,i,k);
     }
@@ -87,7 +95,8 @@ int findCount(int k, vector<vector<char>> &a) {
 }
 
 int main() {
-    int n = 4;
+    int n;
+    cin>>n;
  
     vector<vector<char>> keypad =
     {
