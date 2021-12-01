@@ -1,5 +1,10 @@
 //Pots of Gold Game Problem using Dynamic Programming
 
+/* There are two players, A and B, in Pots of gold game, and pots of gold arranged in a line, each containing some gold coins. 
+The players can see how many coins are there in each gold pot, and each player gets alternating turns in which the player can
+pick a pot from either end of the line. The winner is the player who has a higher number of coins at the end. The objective is
+to “maximize” the number of coins collected by A, assuming B also plays “optimally”, and A starts the game. */
+
 #include<bits/stdc++.h>
 #define ll long long
 #define pb push_back
