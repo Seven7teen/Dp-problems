@@ -1,0 +1,56 @@
+//LONGEST PALINDROMIC SUBSTRING 
+
+#include<bits/stdc++.h>
+#define ll long long
+#define pb push_back
+#define loop(i,n) for(ll i=0;i<n;i++)
+#define looper(i,s,n) for(ll i=s;i<n;i++)
+using namespace std;
+
+void printSubStr(string s, int l, int r)
+{
+    for (int i = l; i <= r; ++i) cout << s[i];
+    cout<<endl;
+}
+
+int lps(string s) {
+    int n=s.size(), start=0;
+    vector<vector<bool>>dp(n,vector<bool>(n));
+    int mx_len = 1;
+    //FOR SINGLE LENGTH SUBSTRING
+    loop(i,n) dp[i][i]=true;
+    
+    //FOR SUBSTRING OF LENGTH 2
+    loop(i,n-1) {
+        if(s[i]==s[i+1]) {
+            dp[i][i+1]=1;
+            mx_len=2;
+            start=i;
+        }
+    }
+    
+    //FOR SUBSTRING OF LENGTH MORE THAN 2
+    for(int k=3;k<=n;k++) {  // length of substring = k to n
+        for(int i=0;i+k-1<n;i++) {
+            int j=i+k-1;
+            if(s[i]==s[j] && dp[i+1][j-1]) { // it checks if s[start]==s[end] AND the non-boundary substring is a palindrome then only the substring is a palindrome.
+                dp[i][j]=1;
+                if(k>mx_len) {
+                    mx_len=k;  // max length is updated 
+                    start = i;  // start index is noted
+                }
+            }
+        }
+    }
+    
+    cout << "Longest palindrome substring is: ";
+    printSubStr(s, start, start + mx_len - 1);
+    return mx_len;
+}
+
+int main()
+{
+    string str = "aaaabbaa";
+    cout << lps(str)<<" is length of Longest palindrome substring"<<endl;
+    return 0;
+}
